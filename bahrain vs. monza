@@ -1,0 +1,41 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Simulação de stint (performance ao longo das voltas)
+def stint(laps, initial_pace, degradation):
+    performance = []
+    pace = initial_pace
+
+    for lap in range(laps):
+        performance.append(pace)
+        pace += degradation  # quanto maior, mais lento fica
+
+    return performance
+
+# Parâmetros (Bahrain = degradação alta)
+laps = 30
+
+# Bahrain (pista abrasiva, pneus sofrem mais)
+bahrain_soft = stint(laps, initial_pace=90, degradation=0.25)
+bahrain_medium = stint(laps, initial_pace=92, degradation=0.18)
+
+# Monza (baixa degradação, pista lisa e rápida)
+monza_soft = stint(laps, initial_pace=85, degradation=0.10)
+monza_medium = stint(laps, initial_pace=87, degradation=0.07)
+
+# Gráfico
+plt.figure(figsize=(10,6))
+
+plt.plot(bahrain_soft, label="Bahrain - Soft", linestyle="--")
+plt.plot(bahrain_medium, label="Bahrain - Medium", linestyle="--")
+
+plt.plot(monza_soft, label="Monza - Soft")
+plt.plot(monza_medium, label="Monza - Medium")
+
+plt.title("Comparação de Degradação: Monza vs Bahrain")
+plt.xlabel("Voltas")
+plt.ylabel("Tempo por volta (simulado)")
+plt.legend()
+plt.grid(True)
+
+plt.show()
