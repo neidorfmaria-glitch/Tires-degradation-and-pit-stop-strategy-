@@ -1,0 +1,41 @@
+import fastf1
+import numpy as np
+
+print("Rodando...")
+
+session = fastf1.get_session(2023, 'Bahrain', 'R')
+session.load()
+
+laps = session.laps.pick_drivers('LEC')
+
+lap_times = laps['LapTime'].dt.total_seconds().dropna().reset_index(drop=True)
+
+print(lap_times)
+voltas = np.arange(1, len(lap_times) + 1)
+
+print(voltas)
+k_normal = 1.00
+k_otimizado = 0.90
+pneu_normal = lap_times * (
+    1 + k_normal * 0.001 * (voltas - 1)
+)
+
+pneu_otimizado = lap_times * (
+    1 + k_otimizado * 0.001 * (voltas - 1)
+)
+print(pneu_normal)
+print(pneu_otimizado)
+diferenca = pneu_normal - pneu_otimizado
+
+print(diferenca)
+maior_diferenca = diferenca.max()
+volta_maior_diferenca = voltas[diferenca.argmax()]
+
+print("Maior diferença:", maior_diferenca, "segundos")
+print("Volta:", volta_maior_diferenca)
+limite = 0.1
+
+voltas_relevantes = voltas[diferenca >= limite]
+
+print("Primeira volta com diferença de pelo menos 0,1 s:",
+      voltas_relevantes[0])
