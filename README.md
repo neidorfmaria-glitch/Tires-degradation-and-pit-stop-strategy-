@@ -1,4 +1,4 @@
-# Formula 1 Tire Degradation & Pit Stop Strategy 🏎️
+# Formula 1 Tire Degradation & Pit Stop Strategy
 
 Computational analysis of Formula 1 race performance, tire degradation, and pit stop strategy using real-world race data.
 
